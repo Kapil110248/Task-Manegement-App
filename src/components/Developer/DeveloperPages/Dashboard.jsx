@@ -37,7 +37,7 @@ function Dashboard({ tasks, setTasks }) {
     <div className="container-fluid px-5 py-4"style={{ marginRight:"400px", marginLeft:"-300px" }}>
       <div className="mx-auto" style={{ maxWidth: "1400px" }}>
         {/* Task Input Form */}
-        <div className="card p-4 mb-4 shadow-sm">
+        <div className="card p-3 mb-4 shadow-sm">
           <h3 className="mb-3">Add New Task</h3>
           <div className="row g-3 align-items-end">
             <div className="col-md-4">
