@@ -28,7 +28,7 @@ function Dashboard({ tasks, setTasks }) {
 
   const getStatusClass = (status) => {
     if (status === "Pending") return "bg-warning";
-    if (status === "In Progress") return "bg-info";
+    if (status === "Progress") return "bg-info";
     if (status === "Completed") return "bg-success";
     return "";
   };
@@ -69,7 +69,7 @@ function Dashboard({ tasks, setTasks }) {
                 onChange={(e) => setStatus(e.target.value)}
               >
                 <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
+                <option value="Progress">Progress</option>
                 <option value="Completed">Completed</option>
               </select>
             </div>
@@ -105,11 +105,7 @@ function Dashboard({ tasks, setTasks }) {
         </div>
 
         {/* Link to In Progress Page */}
-        <div className="mb-4">
-          <Link to="/in-progress" className="btn btn-outline-info">
-            View In Progress Tasks →
-          </Link>
-        </div>
+     
 
         {/* Task Table */}
         <div className="table-responsive">

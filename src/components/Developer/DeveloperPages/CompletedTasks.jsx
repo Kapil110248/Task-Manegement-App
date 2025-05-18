@@ -30,7 +30,7 @@ function CompletedTaskPage({ tasks }) {
                     <td>{task.task}</td>
                     <td>{task.dateTime}</td>
                     <td>{task.deadline}</td>
-                    <td>{task.status}</td>
+                    <td style={{color:'green'}}>{task.status}</td>
                   </tr>
                 ))}
               </tbody>

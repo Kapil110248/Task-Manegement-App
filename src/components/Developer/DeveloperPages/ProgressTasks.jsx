@@ -1,17 +1,17 @@
 import React from "react";
 
 function InProgressPage({ tasks }) {
-  const inProgressTasks = tasks.filter((task) => task.status === "In Progress");
+  const inProgressTasks = tasks.filter((task) => task.status === "Progress");
 
   return (
     <div className="container mt-4" style={{ marginRight:"400px", marginLeft:"-300px" }}>
-      <h2 className="mb-3">In Progress Tasks</h2>
+      <h2 className="mb-3">Progress Tasks</h2>
       {inProgressTasks.length === 0 ? (
         <p>No tasks in progress</p>
       ) : (
         <div className="table-responsive">
           <table className="table table-bordered text-center">
-            <thead className="table-light">
+            <thead className="table-light"> 
               <tr>
                 <th>Task No</th>
                 <th>Task ID</th>
@@ -29,7 +29,7 @@ function InProgressPage({ tasks }) {
                   <td>{task.task}</td>
                   <td>{task.dateTime}</td>
                   <td>{task.deadline}</td>
-                  <td>{task.status}</td>
+                  <td style={{color:'rgb(15 171 202) '}}>{task.status}</td>
                 </tr>
               ))}
             </tbody>

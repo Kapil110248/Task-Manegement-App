@@ -20,7 +20,7 @@ function Sidebar({isOpen}) {
           </NavLink>
         </li>
         <li style={{ marginTop: "30px" }}  className="nav-item">
-          <NavLink to="/in-progress"className="nav-link text-dark" >
+          <NavLink to="/Progress"className="nav-link text-dark" >
           <i className="bi bi-bar-chart-line"></i>   Progress Tasks
           </NavLink>
         </li>
