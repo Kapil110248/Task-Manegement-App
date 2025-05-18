@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./sidebarAdmin.css"; 
 
 function SidebarAdmin({ isOpen }) {
   if (!isOpen) return null;
