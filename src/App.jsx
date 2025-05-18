@@ -10,8 +10,8 @@ import Admin from "./components/Admin/AdminLogin";
 import DeveloperLayout from "./components/Developer/Sidebar/layoutDeveloper"; // Correct name
 import DeveloperDashBoard from "./components/Developer/DeveloperPages/Dashboard";
 import ProgressTasks from "./components/Developer/DeveloperPages//ProgressTasks";
-import PendingTask from "./components/Developer/DeveloperPages/PendingTask";
 import CompletedTasks from "./components/Developer/DeveloperPages/CompletedTasks";
+import PendingTask from "./components/Developer/DeveloperPages/PendingTask";
 
 // Admin Layout and Pages
 
