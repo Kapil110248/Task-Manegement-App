@@ -32,7 +32,7 @@ function Layout() {
           padding: "20px",
           width: "100%",
          }}>
-          <div style={{ marginLeft: "650px", marginTop: "50px" }}>
+          <div style={{ marginLeft: "250px",marginRight:"200px", marginTop: "50px" }}>
         
       
         <Outlet />

@@ -31,7 +31,7 @@ export default function NavigationBar() {
             <Nav className="ms-auto">
               <Nav.Link
                 as={Link}
-                to="/admin"
+                to="/adminLogin"
                 onClick={() => setLoginType("admin")}
                 style={{
                   color: loginType === "admin" ? "#FFD700" : "white",
@@ -43,7 +43,7 @@ export default function NavigationBar() {
            
               <Nav.Link
                 as={Link}
-                to="/developer"
+                to="/developerLogin"
                 onClick={() => setLoginType("developer")} style={{
                   color: loginType === "developer" ? "#FFD700" : "white",
                   fontWeight: "bold",

@@ -4,8 +4,8 @@ function InProgressPage({ tasks }) {
   const inProgressTasks = tasks.filter((task) => task.status === "Progress");
 
   return (
-    <div className="container mt-4" style={{ marginRight:"400px", marginLeft:"-300px" }}>
-      <h2 className="mb-3">Progress Tasks</h2>
+    <div className="container mt-4" >
+      <h2 className="mb-3 text-center text-primary">Progress Tasks</h2>
       {inProgressTasks.length === 0 ? (
         <p>No tasks in progress</p>
       ) : (

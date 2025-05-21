@@ -4,9 +4,9 @@ function CompletedTaskPage({ tasks }) {
   const completedTasks = tasks.filter((task) => task.status === "Completed");
 
   return (
-    <div className="container mt-4 d-flex justify-content-center" style={{ marginRight:"500px", marginLeft:"-300px" }} >
+    <div className="container mt-4"  >
       <div style={{ width: "90%" }}>
-        <h2 className="mb-3 text-center">Completed Tasks</h2>
+        <h2 className="mb-3 text-center text-success" >Completed Tasks</h2>
         {completedTasks.length === 0 ? (
           <p className="text-center">No tasks completed yet</p>
         ) : (

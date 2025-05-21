@@ -4,8 +4,8 @@ function PendingPage({tasks}) {
   const pendingTask = tasks.filter((task) => task.status === "Pending");
 
   return (
-       <div className="container mt-4" style={{ marginRight:"400px", marginLeft:"-300px" }}>
-      <h2 className="mb-3">Pending Tasks</h2>
+       <div className="container mt-4" >
+      <h2 className="mb-3 text-center text-warning ">Pending Tasks</h2>
       {pendingTask.length === 0 ? (
         <p>No tasks in pending</p>
       ) : (
@@ -29,7 +29,7 @@ function PendingPage({tasks}) {
                   <td>{task.task}</td>
                   <td>{task.dateTime}</td>
                   <td>{task.deadline}</td>
-                  <td style={{color:'yellow'}}>{task.status}</td>
+                  <td className='text-warning'>{task.status}</td>
                 </tr>
               ))}
             </tbody>

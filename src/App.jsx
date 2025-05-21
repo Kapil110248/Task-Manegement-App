@@ -39,8 +39,8 @@ function App() {
 
         <Routes>
           {/* Admin Routes  */}
-           <Route path="/admin" element={<Admin />} />
-         <Route path="/adminLayout" element={<AdminLayout />} />
+           <Route path="/adminLogin" element={<Admin />} />
+         <Route path='' element={<AdminLayout />} >
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/pending-tasks" element={<AdminPendingTask />} /> 
           <Route path="/admin/progress-tasks" element={<AdminProgressTasks tasks={tasks} />} />
@@ -49,18 +49,20 @@ function App() {
           <Route path="/admin/all-developers" element={<AllDeveloper />} />
           <Route path="/admin/add-task" element={<AddTask />} />
           <Route path="/admin/all-tasks" element={<AllTasks tasks={tasks} />} />
+          </Route>
 
            
           {/* Developer Routes */}
 
        
-          <Route path="/developer" element={<Developer />} />
-            <Route path="/"element={<DeveloperLayout />}>
+          <Route path="/developerLogin" element={<Developer />} />
+            <Route path=""element={<DeveloperLayout />}>
             <Route path="/developerDashboard" element={<DeveloperDashBoard tasks={tasks} setTasks={setTasks} />} />
             <Route path="/Progress" element={<ProgressTasks tasks={tasks} />} />
             <Route path="/PendingTask" element={<PendingTask tasks={tasks}/>} />
             <Route path="/completed" element={<CompletedTasks tasks={tasks}/>} />
-          </Route>
+      </Route>
+         
         </Routes>
       </BrowserRouter>
     </>
