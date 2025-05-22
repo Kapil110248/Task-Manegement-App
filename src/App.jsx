@@ -40,7 +40,7 @@ function App() {
         <Routes>
           {/* Admin Routes  */}
            <Route path="/adminLogin" element={<Admin />} />
-         <Route path='' element={<AdminLayout />} >
+         <Route path='/admin' element={<AdminLayout />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/pending-tasks" element={<AdminPendingTask />} /> 
           <Route path="/admin/progress-tasks" element={<AdminProgressTasks tasks={tasks} />} />
@@ -49,7 +49,7 @@ function App() {
           <Route path="/admin/all-developers" element={<AllDeveloper />} />
           <Route path="/admin/add-task" element={<AddTask />} />
           <Route path="/admin/all-tasks" element={<AllTasks tasks={tasks} />} />
-          </Route>
+         
 
            
           {/* Developer Routes */}

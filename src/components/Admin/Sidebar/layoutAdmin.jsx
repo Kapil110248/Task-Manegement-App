@@ -33,7 +33,7 @@ function AdminLayout() {
           width: "100%",
         }}
       >
-        <div style={{ marginLeft: "650px", marginTop: "50px" }}>
+        <div style={{ marginLeft: "150px", marginTop: "50px" }}>
           <Outlet />
         </div>
       </div>

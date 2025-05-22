@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TaskContext } from '../TaskContext/TaskContext';
+import { TaskContext } from '../Context/TaskContext';
 
 function AdminDashboard() {
   const { tasks } = useContext(TaskContext);
