@@ -1,156 +1,60 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// src/pages/DeveloperDashboard.jsx
+import React, { useContext, useState } from "react";
+import { TaskContext } from "../../Admin/Context/TaskContext";
 
-function Dashboard({ tasks, setTasks }) {
-  const [taskText, setTaskText] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState("Pending");
 
-  const handleAddTask = () => {
-    if (!taskText.trim() || !deadline) return;
+function Dashboard() {
+  const { tasks } = useContext(TaskContext);
+  const [developerName, setDeveloperName] = useState("Kapil"); // ✅ Change as needed
 
-    const newTask = {
-      id: Date.now(),
-      task: taskText,
-      dateTime: new Date().toLocaleString(),
-      deadline,
-      status,
-    };
-
-    setTasks([...tasks, newTask]);
-    setTaskText("");
-    setDeadline("");
-    setStatus("Pending");
-  };
-
-  const getTaskCount = (type) =>
-    tasks.filter((task) => task.status === type).length;
+  // Filter tasks for this specific developer
+  const myTasks = tasks.filter(task => task.developerName === developerName);
 
   const getStatusClass = (status) => {
-    if (status === "Pending") return "bg-warning";
-    if (status === "Progress") return "bg-info";
-    if (status === "Completed") return "bg-success";
-    return "";
+    if (status === "Pending") return "bg-yellow-400";
+    if (status === "In Progress") return "bg-blue-400";
+    if (status === "Completed") return "bg-green-400";
+    return "bg-gray-300";
   };
-
+ 
   return (
-    <div className="container-fluid px-5 py-4">
-      <div className="mx-auto" style={{ maxWidth: "1400px" }}>
-        {/* Task Input Form */}
-        <div className="card p-3 mb-4 shadow-sm">
-          <h3 className="mb-3 text-center">Add New Task</h3>
-          <div className="row g-3 align-items-end">
-            <div className="col-md-4">
-              <label className="form-label">Task</label>
-              <input
-                type="text"
-                className="form-control"
-                value={taskText}
-                onChange={(e) => setTaskText(e.target.value)}
-                placeholder="Enter your task"
-              />
-            </div>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        👨‍💻 {developerName}'s Task Dashboard
+      </h2>
 
-            <div className="col-md-3">
-              <label className="form-label">Deadline</label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
-              />
-            </div>
-
-            <div className="col-md-3">
-              <label className="form-label">Status</label>
-              <select
-                className="form-select"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="Pending">Pending</option>
-                <option value="Progress">Progress</option>
-                <option value="Completed">Completed</option>
-              </select>
-            </div>
-
-            <div className="col-md-2">
-              <button onClick={handleAddTask} className="btn btn-primary w-100">
-                Add Task
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Summary Boxes */}
-        <div className="row text-center mb-4">
-          <div className="col-md-4">
-            <div className="bg-warning p-3 rounded text-white">
-              <h5>Pending</h5>
-              <h2>{getTaskCount("Pending")}</h2>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="bg-info p-3 rounded text-white">
-              <h5>In Progress</h5>
-              <h2>{getTaskCount("In Progress")}</h2>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="bg-success p-3 rounded text-white">
-              <h5>Completed</h5>
-              <h2>{getTaskCount("Completed")}</h2>
-            </div>
-          </div>
-        </div>
-
-        {/* Link to In Progress Page */}
-     
-
-        {/* Task Table */}
-        <div className="table-responsive">
-          <table className="table table-bordered text-center">
-            <thead className="table-light">
+      {myTasks.length === 0 ? (
+        <p className="text-center text-gray-500">No tasks assigned yet.</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full border border-gray-300">
+            <thead className="bg-gray-100">
               <tr>
-                <th>Task No</th>
-                <th>Task ID</th>
-                <th>Task</th>
-                <th>Date Time</th>
-                <th>Deadline</th>
-                <th>Status</th>
+                <th className="border p-2">Task ID</th>
+                <th className="border p-2">Title</th>
+                <th className="border p-2">Deadline</th>
+                <th className="border p-2">Status</th>
               </tr>
             </thead>
             <tbody>
-              {tasks.length === 0 ? (
-                <tr>
-                  <td colSpan="6">No tasks added yet</td>
+              {myTasks.map((task) => (
+                <tr key={task.taskId}>
+                  <td className="border p-2 text-center">{task.taskId}</td>
+                  <td className="border p-2 text-center">{task.title}</td>
+                  <td className="border p-2 text-center">{task.deadline}</td>
+                  <td className="border p-2 text-center">
+                    <span className={`text-white px-2 py-1 rounded ${getStatusClass(task.status)}`}>
+                      {task.status}
+                    </span>
+                  </td>
                 </tr>
-              ) : (
-                tasks.map((task, index) => (
-                  <tr key={task.id}>
-                    <td>{index + 1}</td>
-                    <td>{task.id}</td>
-                    <td>{task.task}</td>
-                    <td>{task.dateTime}</td>
-                    <td>{task.deadline}</td>
-                    <td>
-                      <span
-                        className={`badge text-white ${getStatusClass(
-                          task.status
-                        )}`}
-                      >
-                        {task.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              )}
+              ))}
             </tbody>
           </table>
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
-export default Dashboard;      
+export default Dashboard;

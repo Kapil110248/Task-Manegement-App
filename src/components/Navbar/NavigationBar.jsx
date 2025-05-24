@@ -9,7 +9,7 @@ export default function NavigationBar() {
     <>
       {/* NAVBAR */}
       <Navbar expand="lg" style={{ backgroundColor: "#2980B9" }}>
-        <Container>
+        <Container> 
           <Navbar.Brand
             style={{
               color: "white",

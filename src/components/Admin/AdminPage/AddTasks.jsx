@@ -1,22 +1,25 @@
 import React, { useState, useContext } from "react";
 import { TaskContext } from "../Context/TaskContext";
+import { DeveloperContext } from "../Context/DeveloperContext";
 
 function AddTasks() {
   const { addTask } = useContext(TaskContext);
+  const { developers } = useContext(DeveloperContext);
 
   const [taskName, setTaskName] = useState("");
   const [date, setDate] = useState("");
+  const [developerId, setDeveloperId] = useState("");
   const [developerName, setDeveloperName] = useState("");
-  const [status, setStatus] = useState("");
+  const [status] = useState("Pending"); // fixed status
 
   const handleAdd = () => {
-    if (taskName && date && developerName && status) {
+    if (taskName && date && developerId && developerName && status) {
       const newTask = {
         taskNo: Date.now(),
         taskId: `T${Math.floor(Math.random() * 10000)}`,
         date: new Date().toLocaleString(),
         deadline: date,
-        developerId: `D${Math.floor(Math.random() * 1000)}`, // dummy ID
+        developerId,
         developerName,
         status,
         title: taskName,
@@ -27,8 +30,8 @@ function AddTasks() {
       // Clear input fields
       setTaskName("");
       setDate("");
+      setDeveloperId("");
       setDeveloperName("");
-      setStatus("");
     } else {
       alert("Please fill all fields");
     }
@@ -62,28 +65,39 @@ function AddTasks() {
       </div>
 
       <div className="mb-4">
-        <label className="block mb-1 font-medium">Developer Name</label>
-        <input
-          type="text"
-          value={developerName}
-          onChange={(e) => setDeveloperName(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-          placeholder="Enter developer name"
-        />
+        <label className="block mb-1 font-medium">Assign Developer</label>
+        <select
+          value={JSON.stringify({ id: developerId, name: developerName })}
+          onChange={(e) => {
+            const selectedDev = JSON.parse(e.target.value);
+            setDeveloperId(selectedDev.id);
+            setDeveloperName(selectedDev.name);
+          }}
+          className="w-full border px-3 py-2 rounded bg-white"
+        >
+          <option value="">Select Developer</option>
+          {developers.map((dev) => (
+            <option
+              key={dev.developerId}
+              value={JSON.stringify({
+                id: dev.developerId,
+                name: dev.fullName,
+              })}
+            >
+              {dev.fullName} ({dev.developerId}) - {dev.role}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="mb-6">
         <label className="block mb-1 font-medium">Status</label>
-        <select
+        <input
+          type="text"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full border px-3 py-2 rounded bg-white"
-        >
-          <option value="">Select status</option>
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
+          disabled
+          className="w-full border px-3 py-2 rounded bg-gray-100 text-gray-600 cursor-not-allowed"
+        />
       </div>
 
       <button
