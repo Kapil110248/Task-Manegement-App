@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { DeveloperContext } from '../Context/DeveloperContext';
+import { DeveloperContext } from '../../Context/DeveloperContext';
 
 function AddDeveloper() {
   const { addDeveloper } = useContext(DeveloperContext);

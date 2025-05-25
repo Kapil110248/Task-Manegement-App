@@ -1,7 +1,7 @@
 // src/pages/PendingTasks.js
 
 import React, { useContext } from 'react';
-import { TaskContext } from '../Context/TaskContext';
+import { TaskContext } from '../../Context/TaskContext';
 
 function PendingTasks() {
   const { tasks } = useContext(TaskContext);

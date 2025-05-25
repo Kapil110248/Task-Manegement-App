@@ -1,13 +1,12 @@
-// src/pages/DeveloperDashboard.jsx
-import React, { useContext, useState } from "react";
-import { TaskContext } from "../../Admin/Context/TaskContext";
-
+import React, { useContext } from "react";
+import { TaskContext } from "../../Context/TaskContext";
+import { UserContext } from "../../Context/UserContext";
 
 function Dashboard() {
   const { tasks } = useContext(TaskContext);
-  const [developerName, setDeveloperName] = useState("Kapil"); // ✅ Change as needed
+  const { user } = useContext(UserContext);
+  const developerName = user.developerName;
 
-  // Filter tasks for this specific developer
   const myTasks = tasks.filter(task => task.developerName === developerName);
 
   const getStatusClass = (status) => {
@@ -16,7 +15,7 @@ function Dashboard() {
     if (status === "Completed") return "bg-green-400";
     return "bg-gray-300";
   };
- 
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6 text-center">

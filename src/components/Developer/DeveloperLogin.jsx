@@ -1,16 +1,26 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext } from "react"; // 🔥 useContext added
+import { useNavigate } from "react-router-dom";      // 🔥 navigation
 import { Form, Button } from "react-bootstrap";
+import { UserContext } from "../Context/UserContext"; // 🔥 import context
 
 export default function Developer() {
   const [validated, setValidated] = useState(false);
+  const [username, setUsername] = useState(""); // 🔥 new state for name
+  const navigate = useNavigate();               // 🔥 to redirect
+  const { setUser } = useContext(UserContext);  // 🔥 context access
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      event.preventDefault(); // prevent reload
+      setUser({ developerName: username }); // 🔥 store name in context
+      navigate("/developer");               // 🔥 redirect to dashboard
     }
+
     setValidated(true);
   };
 
@@ -45,6 +55,8 @@ export default function Developer() {
                 required
                 type="text"
                 placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)} // 🔥 update username
                 style={{ borderRadius: "20px", padding: "10px" }}
               />
             </Form.Group>
@@ -76,4 +88,3 @@ export default function Developer() {
     </>
   );
 }
-  
