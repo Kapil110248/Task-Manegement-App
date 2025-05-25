@@ -61,8 +61,8 @@ function App() {
             <Route path=""element={<DeveloperLayout />}>
             <Route path="/developerDashboard" element={<DeveloperDashBoard tasks={tasks} setTasks={setTasks} />} />
             <Route path="/Progress" element={<ProgressTasks tasks={tasks} />} />
-            <Route path="/PendingTask" element={<PendingTask tasks={tasks}/>} />
             <Route path="/completed" element={<CompletedTasks tasks={tasks}/>} />
+            <Route path="/PendingTask" element={<PendingTask tasks={tasks}/>} />
       </Route>
          
         </Routes>
