@@ -1,16 +1,22 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // import useNavigate
 
 export default function Admin() {
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate(); // initialize navigate
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
+    } else {
+      // redirect to /admin if form is valid
+      navigate("/admin");
     }
+
     setValidated(true);
   };
 
