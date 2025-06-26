@@ -1,0 +1,59 @@
+.sidebar-container {
+  width: 250px;
+  height: 100vh;
+  background: #f8f9fa;
+  position: fixed;
+  top: 56px; /* Navbar ke just neeche */
+  left: 0;
+  z-index: 100;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  transform: translateX(0); /* visible by default */
+  transition: transform 0.3s ease-in-out;
+}
+.sidebar-hidden {
+  transform: translateX(-100%); /* hide sidebar to left */
+}
+
+
+/* Hide sidebar when closed */
+.sidebar-container.closed {
+  transform: translateX(-100%);
+}
+
+/* Toggle Button Style */
+.sidebar-toggle {
+  position: fixed;
+  top: 70px; /* below navbar */
+  left: 280px;
+  z-index: 1100;
+  
+}
+
+
+/* When sidebar is closed, move toggle left */
+.sidebar-toggle.closed {
+  left: 10px;
+}
+/* Fix SweetAlert2 buttons hover flash */
+.swal2-popup .swal2-styled {
+  background-color: #3085d6;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.swal2-popup .swal2-styled:hover {
+  background-color: #1e5ab6 !important;
+  color: white !important;
+}
+
+.swal2-popup .swal2-cancel {
+  background-color: #d33 !important;
+}
+
+.swal2-popup .swal2-cancel:hover {
+  background-color: #a00 !important;
+  color: white !important;
+}
