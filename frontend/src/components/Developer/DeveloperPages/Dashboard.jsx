@@ -10,8 +10,31 @@ function Dashboard() {
   const developerName = user?.developerName || localStorage.getItem("developerName") || "Developer";
 
   const [myTasks, setMyTasks] = useState([]);
+  const [editStatusId, setEditStatusId] = useState(null);
 
-  // ✅ Filter tasks based on developerId (handle object or string)
+  // ✅ Fetch tasks from backend on refresh
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const token = localStorage.getItem("developerToken");
+        const res = await fetch("http://localhost:4000/api/developer/tasks", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        setTasks(data); // ✅ Update TaskContext
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    if (!tasks.length) {
+      fetchTasks(); // ✅ Only call API if tasks are empty
+    }
+  }, [tasks.length, setTasks]);
+
+  // ✅ Filter developer's own tasks
   useEffect(() => {
     const assignedTasks = tasks.filter((task) => {
       const devId = typeof task.developerId === "object" ? task.developerId._id : task.developerId;
@@ -20,28 +43,17 @@ function Dashboard() {
     setMyTasks(assignedTasks);
   }, [tasks, developerId]);
 
-  // ✅ Handle status update
-  const handleStatusClick = async (taskId) => {
-    const currentTask = myTasks.find((t) => t.taskId === taskId);
-    if (!currentTask) return;
-
-    let newStatus = currentTask.status;
-    if (newStatus === "Pending") newStatus = "In Progress";
-    else if (newStatus === "In Progress") newStatus = "Completed";
-    else return;
-
+  // ✅ Status Change Handler
+  const handleStatusChange = async (taskId, newStatus) => {
     try {
-      const res = await fetch(
-        `http://localhost:4000/api/developer/tasks-status/${taskId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("developerToken")}`,
-          },
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
+      const res = await fetch(`http://localhost:4000/api/developer/tasks-status/${taskId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("developerToken")}`,
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
 
       if (res.ok) {
         setTasks((prevTasks) =>
@@ -49,11 +61,12 @@ function Dashboard() {
             t.taskId === taskId ? { ...t, status: newStatus } : t
           )
         );
+        setEditStatusId(null);
       } else {
-        console.error("Status update failed.");
+        console.error("Failed to update status.");
       }
-    } catch (error) {
-      console.error("Error updating status:", error);
+    } catch (err) {
+      console.error("Error updating status:", err);
     }
   };
 
@@ -64,7 +77,7 @@ function Dashboard() {
   const getStatusClass = (status) => {
     if (status === "Pending") return "bg-yellow-400";
     if (status === "In Progress") return "bg-blue-400";
-    if (status === "Completed") return "bg-green-400";
+    if (status === "Completed") return "bg-green-500";
     return "bg-gray-300";
   };
 
@@ -74,7 +87,6 @@ function Dashboard() {
         👨‍💻 {developerName}'s Task Dashboard
       </h2>
 
-      {/* Task Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 text-center">
         <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4 shadow">
           <h3 className="text-lg font-semibold text-yellow-700">Pending</h3>
@@ -90,7 +102,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Task Table */}
       {myTasks.length === 0 ? (
         <p className="text-center text-gray-500">No tasks assigned yet.</p>
       ) : (
@@ -119,15 +130,30 @@ function Dashboard() {
                     {new Date(task.taskDeadline).toLocaleString()}
                   </td>
                   <td className="border p-2 text-center">
-                    <span
-                      onClick={() => handleStatusClick(task.taskId)}
-                      className={`text-white px-2 py-1 rounded cursor-pointer ${getStatusClass(
-                        task.status
-                      )}`}
-                      title="Click to change status"
-                    >
-                      {task.status}
-                    </span>
+                    {editStatusId === task.taskId ? (
+                      <select
+                        value={task.status}
+                        onChange={(e) =>
+                          handleStatusChange(task.taskId, e.target.value)
+                        }
+                        onBlur={() => setEditStatusId(null)}
+                        className="px-2 py-1 rounded border text-sm"
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    ) : (
+                      <span
+                        onClick={() => setEditStatusId(task.taskId)}
+                        className={`text-white px-2 py-1 rounded cursor-pointer ${getStatusClass(
+                          task.status
+                        )}`}
+                        title="Click to change status"
+                      >
+                        {task.status}
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

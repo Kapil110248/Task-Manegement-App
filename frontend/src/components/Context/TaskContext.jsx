@@ -6,7 +6,7 @@ export const TaskContext = createContext();
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
-  // ✅ Fetch all tasks for the current admin
+  // ✅ Fetch all tasks from backend
   const getAllTasks = async () => {
     try {
       const token = localStorage.getItem("adminToken");
@@ -16,13 +16,13 @@ export const TaskProvider = ({ children }) => {
         },
       });
 
-      setTasks(res.data);
+      setTasks(res.data.tasks); // ✅ Make sure your backend sends { tasks: [...] }
     } catch (error) {
       console.error("❌ Failed to fetch tasks:", error.message);
     }
   };
 
-  // ✅ Add task to the list (local update)
+  // ✅ Add new task to state (local update)
   const addTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };

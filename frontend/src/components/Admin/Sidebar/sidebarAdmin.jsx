@@ -1,12 +1,11 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // ✅ SweetAlert2 import
+import Swal from "sweetalert2";
 import "./sidebarAdmin.css";
 
-function SidebarAdmin({ isOpen }) {
+function SidebarAdmin({ isOpen, onToggle }) {
   const navigate = useNavigate();
 
-  // ✅ SweetAlert2 Logout Confirmation
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -16,6 +15,7 @@ function SidebarAdmin({ isOpen }) {
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, Logout",
+      cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("adminToken");
@@ -26,75 +26,75 @@ function SidebarAdmin({ isOpen }) {
           timer: 1500,
           showConfirmButton: false,
         });
-        navigate("/adminLogin");
+        navigate("/");
       }
     });
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="sidebar-container">
-      <ul
-        className="list-unstyled"
-        style={{ marginTop: "60px", cursor: "pointer", marginLeft: "20px" }}
+    <>
+      <div
+        className={`sidebar-toggle-icon-admin ${isOpen ? "open" : ""}`}
+        onClick={onToggle}
       >
-        <li className="nav-item">
-          <NavLink to="/admin/dashboard" className="nav-link text-dark">
-            <i className="bi bi-speedometer2"></i> Dashboard
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/pending-tasks" className="nav-link text-dark">
-            <i className="bi bi-bar-chart-line"></i> Pending Tasks
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/progress-tasks" className="nav-link text-dark">
-            <i className="bi bi-hourglass-split"></i> Progress Tasks
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/completed-tasks" className="nav-link text-dark">
-            <i className="bi bi-check-circle-fill"></i> Completed Tasks
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/add-developer" className="nav-link text-dark">
-            <i className="bi bi-person-plus-fill"></i> Add Developer
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/all-developers" className="nav-link text-dark">
-            <i className="bi bi-people-fill"></i> All Developers
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/add-task" className="nav-link text-dark">
-            <i className="bi bi-plus-circle-fill"></i> Add Task
-          </NavLink>
-        </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/admin/all-tasks" className="nav-link text-dark">
-            <i className="bi bi-card-list"></i> All Tasks
-          </NavLink>
-        </li>
+        <i className="bi bi-list"></i>
+      </div>
 
-        {/* ✅ Logout Button with SweetAlert */}
-        <li
-          style={{
-            marginTop: "120px",
-            marginLeft: "10px",
-            fontWeight: "bold",
-            color: "#dc3545",
-          }}
-          onClick={handleLogout}
-        >
-          <i className="fas fa-sign-out-alt me-2"></i> Logout
-        </li>
-      </ul>
-    </div>
+      <div className={`sidebar-admin-container ${isOpen ? "open" : ""}`}>
+        <ul className="sidebar-menu">
+          <li>
+            <NavLink to="/admin/dashboard">
+              <i className="bi bi-speedometer2"></i> Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/pending-tasks">
+              <i className="bi bi-hourglass-split"></i> Pending Tasks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/progress-tasks">
+              <i className="bi bi-bar-chart-line"></i> Progress Tasks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/completed-tasks">
+              <i className="bi bi-check-circle-fill"></i> Completed Tasks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/add-developer">
+              <i className="bi bi-person-plus-fill"></i> Add Developer
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/all-developers">
+              <i className="bi bi-people-fill"></i> All Developers
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/add-task">
+              <i className="bi bi-plus-circle-fill"></i> Add Task
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/all-tasks">
+              <i className="bi bi-card-list"></i> All Tasks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/adminProfile">
+              <i className="bi bi-person-circle"></i> Profile
+            </NavLink>
+          </li>
+          <li className="logout-btn-admin" onClick={handleLogout}>
+            <i className="fas fa-sign-out-alt"></i> Logout
+          </li>
+        </ul>
+      </div>
+    </>
   );
 }
 
 export default SidebarAdmin;
+ 

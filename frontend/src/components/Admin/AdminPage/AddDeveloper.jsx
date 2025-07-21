@@ -24,14 +24,7 @@ function AddDeveloper() {
   };
 
   const handleAddDeveloper = async () => {
-    let {
-      developerId,
-      fullName,
-      email,
-      phone,
-      role,
-      password,
-    } = developer;
+    let { developerId, fullName, email, phone, role, password } = developer;
 
     developerId = developerId.trim();
     fullName = fullName.trim();

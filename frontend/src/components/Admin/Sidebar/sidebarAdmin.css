@@ -1,14 +1,66 @@
-.sidebar-container {
-  /* padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 250px;
-
-  position: fixed; */
-
-  width: 250px;
-  height: 100vh;
-  color: rgb(3, 3, 3);
+ .sidebar-admin-container {
   position: fixed;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  top: 60px;
+  left: -260px;
+  width: 260px;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+  padding: 20px 15px;
+  border-right: 1px solid #e0e0e0;
 }
+
+.sidebar-admin-container.open {
+  left: 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.sidebar-menu li a:hover {
+  color: #007bff;
+}
+
+.logout-btn-admin {
+  margin-top: 80px;
+  color: #dc3545;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sidebar-toggle-icon-admin {
+  position: fixed;
+  top: 70px;
+  left: 15px;
+
+  padding: 6px 12px;
+
+  cursor: pointer;
+  z-index: 2000;
+  transition: left 0.3s ease;
+}
+
+.sidebar-toggle-icon-admin.open {
+  left: 220px;
+}
+
+.sidebar-toggle-icon-admin i {
+  font-size: 20px;
+  color: #007bff;
+}  

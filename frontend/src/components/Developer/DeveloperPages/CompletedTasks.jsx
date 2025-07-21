@@ -9,11 +9,14 @@ function CompletedPage() {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem("developerToken");
-        const response = await axios.get("http://localhost:4000/api/developer/tasks", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:4000/api/developer/tasks",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.data) {
           const completedTasks = response.data.filter(
             (task) => task.status === "Completed"
@@ -59,9 +62,15 @@ function CompletedPage() {
                   <td className="py-3 px-4">{index + 1}</td>
                   <td className="py-3 px-4">{task.taskId}</td>
                   <td className="py-3 px-4">{task.taskTitle}</td>
-                  <td className="py-3 px-4">{new Date(task.createdDateTime).toLocaleString()}</td>
-                  <td className="py-3 px-4">{new Date(task.taskCompletionDateTime).toLocaleString()}</td>
-                  <td className="py-3 px-4">{new Date(task.taskDeadline).toLocaleDateString()}</td>
+                  <td className="py-3 px-4">
+                    {new Date(task.createdDateTime).toLocaleString()}
+                  </td>
+                  <td className="py-3 px-4">
+                    {new Date(task.taskCompletionDateTime).toLocaleString()}
+                  </td>
+                  <td className="py-3 px-4">
+                    {new Date(task.taskDeadline).toLocaleDateString()}
+                  </td>
                   <td className="py-3 px-4">
                     <span className="bg-green-500 text-white px-3 py-1 text-xs rounded-full font-semibold">
                       {task.status}

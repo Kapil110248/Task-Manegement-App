@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./sidebarDevelopment.css";
 
-function Sidebar({ isOpen }) {
+function SidebarDeveloper({ isOpen }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -18,12 +18,7 @@ function Sidebar({ isOpen }) {
       cancelButtonText: "No",
     }).then((result) => {
       if (result.isConfirmed) {
-        // 🔓 Remove auth data
-        localStorage.removeItem("developerToken");
-        localStorage.removeItem("developerId");
-        localStorage.removeItem("developerName");
-
-        // ✅ SweetAlert success notification
+        localStorage.clear();
         Swal.fire({
           icon: "success",
           title: "Logged out successfully 👋",
@@ -31,58 +26,50 @@ function Sidebar({ isOpen }) {
           timer: 1500,
         });
 
-        // 🕐 Redirect after 1.5s
         setTimeout(() => {
-          navigate("/developerLogin");
+          navigate("/");
         }, 1500);
       }
     });
   };
 
   return (
-    <div className={`sidebar-container ${!isOpen ? "sidebar-hidden" : ""}`}>
-      <ul
-        className="list-unstyled"
-        style={{ marginTop: "60px", cursor: "pointer", marginLeft: "20px" }}
-      >
-        <li className="nav-item">
-          <NavLink to="/developerDashboard" className="nav-link text-dark">
+    <div className={`sidebar-container-dev ${isOpen ? "open" : ""}`}>
+      <ul className="sidebar-list-dev">
+        <li>
+          <NavLink to="/developer/Dashboard">
             <i className="bi bi-speedometer2"></i> Dashboard
           </NavLink>
         </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/Progress" className="nav-link text-dark">
+        <li>
+          <NavLink to="/developer/Progress">
             <i className="bi bi-bar-chart-line"></i> Progress Tasks
           </NavLink>
         </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/PendingTask" className="nav-link text-dark">
-            <i className="bi bi-hourglass-split"></i> Pending Task
+        <li>
+          <NavLink to="/developer/PendingTask">
+            <i className="bi bi-hourglass-split"></i> Pending Tasks
           </NavLink>
         </li>
-        <li style={{ marginTop: "30px" }} className="nav-item">
-          <NavLink to="/completed" className="nav-link text-dark">
+        <li>
+          <NavLink to="/developer/completed">
             <i className="bi bi-check-circle-fill"></i> Completed Tasks
           </NavLink>
         </li>
 
-        {/* Logout */}
-        <li
-          onClick={handleLogout}
-          className="nav-item"
-          style={{
-            marginTop: "350px",
-            marginLeft: "10px",
-            fontWeight: "bold",
-            color: "red",
-          }}
-        >
-          <i className="fas fa-sign-out-alt me-2"></i>
-          Logout
+        {/* ✅ New My Profile Link */}
+        <li>
+          <NavLink to="/developer/developerProfile">
+            <i className="bi bi-person-circle"></i> Profile
+          </NavLink>
+        </li>
+
+        <li className="logout-btn-dev" onClick={handleLogout}>
+          <i className="fas fa-sign-out-alt"></i> Logout
         </li>
       </ul>
     </div>
   );
 }
 
-export default Sidebar;
+export default SidebarDeveloper;

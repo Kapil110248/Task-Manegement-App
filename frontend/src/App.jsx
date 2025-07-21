@@ -1,7 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import NavigationBar from "./components/Navbar/NavigationBar";
+import Home from "./components/Home/Home";
+
+import { TaskProvider } from "./components/Context/TaskContext";
 
 // Developer Components
 import DeveloperProtectedRoute from "./components/Developer/Protected/DeveloperProtectedRoute";
@@ -11,6 +16,7 @@ import DeveloperDashBoard from "./components/Developer/DeveloperPages/Dashboard"
 import ProgressTasks from "./components/Developer/DeveloperPages/ProgressTasks";
 import PendingTask from "./components/Developer/DeveloperPages/PendingTask";
 import CompletedTasks from "./components/Developer/DeveloperPages/CompletedTasks";
+import DeveloperProfile from "./components/Developer/DeveloperPages/DeveloperProfile";
 
 // Admin Components
 import AdminProtectedRoute from "./components/Admin/Protected/AdminProtectedRoute";
@@ -24,52 +30,57 @@ import AddDeveloper from "./components/Admin/AdminPage/AddDeveloper";
 import AllDeveloper from "./components/Admin/AdminPage/AllDeveloper";
 import AddTask from "./components/Admin/AdminPage/AddTasks";
 import AllTasks from "./components/Admin/AdminPage/AllTasks";
+import AdminProfile from "./components/Admin/AdminPage/AdminProfile";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-
   return (
     <BrowserRouter>
-      <NavigationBar />
+      <TaskProvider>
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/adminLogin" element={<Admin />} />
 
-      <Routes>
-        {/* Admin Login (no protection) */}
-        <Route path="/adminLogin" element={<Admin />} />
+          {/* ✅ Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <AdminProtectedRoute>
+                <AdminLayout />
+              </AdminProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="pending-tasks" element={<AdminPendingTask />} />
+            <Route path="progress-tasks" element={<AdminProgressTasks />} />
+            <Route path="completed-tasks" element={<AdminCompletedTasks />} />
+            <Route path="add-developer" element={<AddDeveloper />} />
+            <Route path="all-developers" element={<AllDeveloper />} />
+            <Route path="add-task" element={<AddTask />} />
+            <Route path="all-tasks" element={<AllTasks />} />
+            <Route path="adminProfile" element={<AdminProfile />} />
+          </Route>
 
-        {/* ✅ Protected Admin Routes */}
-        <Route
-          path="/admin"
-          element={
-            <AdminProtectedRoute>
-              <AdminLayout />
-            </AdminProtectedRoute>
-          }
-        >
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="pending-tasks" element={<AdminPendingTask />} />
-          <Route path="progress-tasks" element={<AdminProgressTasks tasks={tasks} />} />
-          <Route path="completed-tasks" element={<AdminCompletedTasks tasks={tasks} />} />
-          <Route path="add-developer" element={<AddDeveloper />} />
-          <Route path="all-developers" element={<AllDeveloper />} />
-          <Route path="add-task" element={<AddTask />} />
-          <Route path="all-tasks" element={<AllTasks tasks={tasks} />} />
-        </Route>
+          {/* ✅ Developer Routes */}
+          <Route path="/developerLogin" element={<Developer />} />
 
-        {/* ✅ Developer Login */}
-        <Route path="/developerLogin" element={<Developer />} />
-
-        {/* ✅ Developer Protected Layout & Routes */}
-        <Route path="/" element={
-  <DeveloperProtectedRoute>
-    <DeveloperLayout />
-  </DeveloperProtectedRoute>
-}>
-  <Route path="developerDashboard" element={<DeveloperDashBoard tasks={tasks} setTasks={setTasks} />} />
-  <Route path="Progress" element={<ProgressTasks tasks={tasks} />} />
-  <Route path="completed" element={<CompletedTasks tasks={tasks} />} />
-  <Route path="PendingTask" element={<PendingTask tasks={tasks} />} />
-</Route>
-      </Routes>
+          <Route
+            path="/developer"
+            element={
+              <DeveloperProtectedRoute>
+                <DeveloperLayout />
+              </DeveloperProtectedRoute>
+            }
+          >
+            <Route path="Dashboard" element={<DeveloperDashBoard />} />
+            <Route path="Progress" element={<ProgressTasks />} />
+            <Route path="completed" element={<CompletedTasks />} />
+            <Route path="PendingTask" element={<PendingTask />} />
+            <Route path="developerProfile" element={<DeveloperProfile />} />
+          </Route>
+        </Routes>
+      </TaskProvider>
+      <ToastContainer position="top-right" autoClose={3000} />
     </BrowserRouter>
   );
 }

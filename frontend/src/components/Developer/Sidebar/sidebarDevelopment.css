@@ -1,59 +1,66 @@
-.sidebar-container {
-  width: 250px;
+.sidebar-container-dev {
+  position: fixed;
+  top: 60px;
+  left: -260px;
+  width: 260px;
   height: 100vh;
-  background: #f8f9fa;
-  position: fixed;
-  top: 56px; /* Navbar ke just neeche */
+  background-color: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+  padding: 20px 15px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.sidebar-container-dev.open {
   left: 0;
-  z-index: 100;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
-  transform: translateX(0); /* visible by default */
-  transition: transform 0.3s ease-in-out;
-}
-.sidebar-hidden {
-  transform: translateX(-100%); /* hide sidebar to left */
 }
 
-
-/* Hide sidebar when closed */
-.sidebar-container.closed {
-  transform: translateX(-100%);
+.sidebar-list-dev {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Toggle Button Style */
-.sidebar-toggle {
-  position: fixed;
-  top: 70px; /* below navbar */
-  left: 280px;
-  z-index: 1100;
-  
+.sidebar-list-dev li {
+  margin-bottom: 25px;
+  font-weight: 500;
 }
 
-
-/* When sidebar is closed, move toggle left */
-.sidebar-toggle.closed {
-  left: 10px;
+.sidebar-list-dev li a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s;
 }
-/* Fix SweetAlert2 buttons hover flash */
-.swal2-popup .swal2-styled {
-  background-color: #3085d6;
-  color: white;
-  border-radius: 5px;
-  padding: 8px 20px;
+
+.sidebar-list-dev li a:hover {
+  color: #007bff;
+}
+
+.logout-btn-dev {
+  margin-top: 80px;
+  color: #dc3545;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-.swal2-popup .swal2-styled:hover {
-  background-color: #1e5ab6 !important;
-  color: white !important;
+.sidebar-toggle-icon-dev {
+  position: fixed;
+  top: 70px;
+  left: 15px;
+
+  padding: 6px 12px;
+
+  cursor: pointer;
+  z-index: 2000;
+  transition: left 0.3s ease;
 }
 
-.swal2-popup .swal2-cancel {
-  background-color: #d33 !important;
+.sidebar-toggle-icon-dev.open {
+  left: 220px;
 }
 
-.swal2-popup .swal2-cancel:hover {
-  background-color: #a00 !important;
-  color: white !important;
+.sidebar-toggle-icon-dev i {
+  font-size: 20px;
+  color: #007bff;
 }

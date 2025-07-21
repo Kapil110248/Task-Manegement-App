@@ -11,14 +11,20 @@ export const DeveloperProvider = ({ children }) => {
     const fetchDevelopers = async () => {
       try {
         const token = localStorage.getItem("adminToken");
-        const res = await axios.get("http://localhost:4000/api/admin/developers", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "http://localhost:4000/api/admin/developers",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setDevelopers(res.data);
       } catch (error) {
-        console.error("❌ Error fetching developers:", error.response?.data || error.message);
+        console.error(
+          "❌ Error fetching developers:",
+          error.response?.data || error.message
+        );
       }
     };
 

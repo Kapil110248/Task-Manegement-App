@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { UserContext } from "../Context/UserContext";
@@ -25,13 +25,16 @@ export default function Developer() {
     }
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/developer-login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const res = await fetch(
+        "http://localhost:4000/api/auth/developer-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await res.json();
 
@@ -58,7 +61,7 @@ export default function Developer() {
         });
 
         // ✅ Navigate to dashboard
-        navigate("/developerDashboard");
+        navigate("/developer/Dashboard");
       } else {
         Swal.fire({
           icon: "error",
@@ -75,6 +78,12 @@ export default function Developer() {
       });
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("developerToken");
+    if (token) {
+      navigate("/developer/Dashboard");
+    }
+  }, [navigate]);
 
   return (
     <div

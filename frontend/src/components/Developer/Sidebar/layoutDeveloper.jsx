@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import SidebarDevelopment from "./sidebarDeveloper";
-import "./sidebarDevelopment.css"; // Ensure CSS is included
+import "./sidebarDevelopment.css";
 
 function Layout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -13,20 +13,20 @@ function Layout() {
 
       {/* Toggle Button */}
       <div
-  style={{
-    position: "fixed",
-    top: "70px",
-    left: isSidebarOpen ? "220px" : "10px",
-    zIndex: 1100,
-    cursor: "pointer",
-    fontSize: "31px",  // 👈 Bigger icon
-    transition: "left 0.3s ease-in-out",
-  }}
-  onClick={() => setSidebarOpen(!isSidebarOpen)}
->
-  <i className="bi bi-list"></i>
-</div>
-
+        style={{
+          position: "fixed",
+          top: "70px",
+          left: isSidebarOpen ? "220px" : "10px",
+          zIndex: 1100,
+          cursor: "pointer",
+          transition: "left 0.3s ease-in-out",
+          fontSize: "24px",
+          color: "#007bff",
+        }}
+        onClick={() => setSidebarOpen(!isSidebarOpen)}
+      >
+        <i className="bi bi-list"></i>
+      </div>
 
       {/* Main Content */}
       <div
